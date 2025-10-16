@@ -1,0 +1,2721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AI Engineer Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00ff9d;
+            --secondary: #00b8ff;
+            --accent: #ff00e5;
+            --dark: #0a0a0a;
+            --light: #f0f0f0;
+            --gray: #888888;
+            --neon-glow: 0 0 10px var(--primary),
+                        0 0 20px var(--primary),
+                        0 0 30px var(--primary);
+        }
+
+        body {
+            font-family: 'Space Mono', 'Courier New', monospace;
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                transparent 0%,
+                rgba(0, 255, 157, 0.03) 50%,
+                transparent 100%
+            );
+            pointer-events: none;
+            animation: scanline 8s linear infinite;
+        }
+        
+        @keyframes scanline {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+
+        .profile-section {
+            text-align: center;
+            padding: 60px 0 20px;
+            position: relative;
+            z-index: 2;
+            background: transparent;
+            margin: 0;
+        }
+
+        .profile-frame {
+            width: 220px;
+            height: 220px;
+            margin: 0 auto;
+            position: relative;
+            border-radius: 50%;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 30px rgba(0, 255, 157, 0.15);
+            animation: pulseFrame 4s ease-in-out infinite;
+        }
+
+        .profile-frame::before,
+        .profile-frame::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 50%;
+            padding: 2px;
+            background: conic-gradient(
+                from 0deg,
+                var(--primary),
+                var(--secondary),
+                var(--accent),
+                var(--primary)
+            );
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            animation: spin 8s linear infinite;
+        }
+
+        .profile-frame::after {
+            filter: blur(12px);
+            opacity: 0.3;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes pulseFrame {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.02) rotate(1deg); }
+        }
+
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(0, 255, 157, 0.3);
+            transition: all 0.3s ease;
+            filter: brightness(1.1) contrast(1.1);
+        }
+
+        .profile-frame:hover .profile-image {
+            transform: scale(1.05);
+            border-color: var(--primary);
+        }
+
+        .cv-btn {
+            margin-top: 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 32px;
+            background: rgba(0, 255, 157, 0.1);
+            border: 1px solid var(--primary);
+            border-radius: 30px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cv-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(0, 255, 157, 0.1),
+                transparent
+            );
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .cv-btn:hover {
+            background: rgba(0, 255, 157, 0.15);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 255, 157, 0.2),
+                       0 0 0 2px rgba(0, 255, 157, 0.1);
+            color: #fff;
+        }
+
+        .cv-btn:hover::before {
+            transform: translateX(100%);
+        }
+
+        .cv-btn i {
+            font-size: 1.3em;
+            transition: transform 0.3s ease;
+        }
+
+        .cv-btn:hover i {
+            transform: translateX(3px) scale(1.1);
+            filter: drop-shadow(0 0 8px var(--primary));
+        }
+
+        @media (max-width: 768px) {
+            .profile-frame {
+                width: 150px;
+                height: 150px;
+            }
+        }
+
+        /* Matrix Canvas Background */
+        #matrixCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        /* Neural Network Background */
+        .neural-network {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.15;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Navigation */
+        nav {
+            padding: 20px 0;
+            backdrop-filter: blur(4px);
+            background: transparent;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(0, 255, 157, 0.05);
+            box-shadow: 0 4px 20px rgba(0, 255, 157, 0.02);
+        }
+
+        nav::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                var(--primary),
+                transparent
+            );
+            opacity: 0.3;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .language-switcher {
+            display: flex;
+            gap: 8px;
+            margin: 0 20px;
+        }
+
+        .lang-btn {
+            background: rgba(0, 255, 157, 0.1);
+            border: 1px solid var(--primary);
+            color: var(--light);
+            padding: 8px 12px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .lang-btn:hover {
+            background: rgba(0, 255, 157, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .lang-btn.active {
+            background: var(--primary);
+            color: var(--dark);
+            box-shadow: 0 0 15px rgba(0, 255, 157, 0.3);
+        }
+
+        [dir="rtl"] {
+            direction: rtl;
+            text-align: right;
+        }
+
+        [dir="rtl"] .nav-links {
+            flex-direction: row-reverse;
+        }
+
+        [dir="rtl"] .logo {
+            flex-direction: row-reverse;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover::before {
+            width: 100%;
+        }
+
+        .mobile-menu-button {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: all 0.3s ease;
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        .mobile-menu-button:hover {
+            color: var(--accent);
+            text-shadow: 0 0 15px var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-button {
+                display: block;
+            }
+
+            .nav-content {
+                padding-left: 40px;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(0, 0, 0, 0.95);
+                padding: 20px;
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+                backdrop-filter: blur(15px);
+                border-bottom: 1px solid var(--primary);
+                box-shadow: 0 4px 30px rgba(0, 255, 157, 0.1);
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .nav-links a::before {
+                bottom: -5px;
+            }
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary);
+            text-shadow: var(--neon-glow);
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 5px 15px;
+            border-radius: 20px;
+            background: rgba(0, 255, 157, 0.05);
+            border: 1px solid rgba(0, 255, 157, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .logo i {
+            font-size: 1.2em;
+            animation: float-icon 3s ease-in-out infinite;
+        }
+
+        .logo:hover {
+            background: rgba(0, 255, 157, 0.15);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .logo:hover i {
+            animation-play-state: paused;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { text-shadow: var(--neon-glow); }
+            50% { text-shadow: none; }
+        }
+
+        @keyframes float-icon {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: linear-gradient(120deg, 
+                var(--primary) 0%,
+                var(--secondary) 50%,
+                var(--accent) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientFlow 8s linear infinite, 
+                     glowText 2s ease-in-out infinite,
+                     float-title 4s ease-in-out infinite;
+            filter: drop-shadow(0 0 8px rgba(0, 255, 157, 0.3));
+        }
+
+        @keyframes float-title {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero h1::before {
+            content: attr(data-text);
+            position: absolute;
+            left: -2px;
+            top: -2px;
+            width: calc(100% + 4px);
+            height: calc(100% + 4px);
+            background: linear-gradient(120deg,
+                transparent 0%,
+                transparent 45%,
+                var(--primary) 50%,
+                transparent 55%,
+                transparent 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: scanGlow 4s linear infinite;
+            opacity: 0.7;
+        }
+
+        .hero h1::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, 
+                transparent,
+                var(--primary),
+                var(--secondary),
+                var(--accent),
+                transparent);
+            transform: scaleX(0.8);
+            opacity: 0;
+            animation: lineGrow 1s ease forwards;
+        }
+
+        @keyframes gradientFlow {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 200% 50%;
+            }
+        }
+
+        @keyframes glowText {
+            0%, 100% {
+                filter: drop-shadow(0 0 8px rgba(0, 255, 157, 0.3));
+            }
+            50% {
+                filter: drop-shadow(0 0 12px rgba(0, 255, 157, 0.5));
+            }
+        }
+
+        @keyframes scanGlow {
+            0% {
+                background-position: -100% 50%;
+            }
+            100% {
+                background-position: 200% 50%;
+            }
+        }
+
+        @keyframes lineGrow {
+            0% {
+                transform: scaleX(0);
+                opacity: 0;
+            }
+            100% {
+                transform: scaleX(0.8);
+                opacity: 1;
+            }
+        }
+
+        .hero .subtitle {
+            font-size: 24px;
+            color: var(--gray);
+            margin-bottom: 15px;
+            animation: fadeInUp 1s 0.2s backwards;
+        }
+
+        .hero .location {
+            font-size: 18px;
+            color: var(--accent);
+            margin-bottom: 30px;
+            animation: fadeInUp 1s 0.3s backwards;
+        }
+
+        .hero p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            color: var(--gray);
+            animation: fadeInUp 1s 0.4s backwards;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            animation: fadeInUp 1s 0.5s backwards;
+        }
+
+        .btn {
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            font-size: 16px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--light);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+
+
+        /* Section Styles */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-size: 42px;
+            text-align: center;
+            margin-bottom: 60px;
+            background: linear-gradient(135deg, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .skill-card {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(12px);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 255, 157, 0.3);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            animation: float-card 4s ease-in-out infinite;
+            animation-delay: calc(var(--card-index, 0) * 0.5s);
+        }
+        
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(0, 255, 157, 0.1),
+                transparent
+            );
+            transform: rotate(45deg);
+            animation: glowingBorder 3s linear infinite;
+        }
+        
+        @keyframes glowingBorder {
+            0% { transform: rotate(45deg) translateX(-100%); }
+            100% { transform: rotate(45deg) translateX(100%); }
+        }
+
+        .skill-card:hover {
+            animation-play-state: paused;
+            transform: scale(1.02);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(0, 255, 157, 0.15);
+        }
+
+        .skill-card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .skill-card ul {
+            list-style: none;
+        }
+
+        .skill-card li {
+            padding: 8px 0;
+            color: var(--gray);
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .skill-card li:before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        @keyframes float-card {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .project-card {
+            background: rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 255, 157, 0.3);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0, 255, 157, 0.1);
+            animation: float-card 4s ease-in-out infinite;
+            animation-delay: calc(var(--card-index, 0) * 0.7s);
+        }
+        
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(
+                circle at var(--mouse-x, center) var(--mouse-y, center),
+                rgba(0, 255, 157, 0.1) 0%,
+                transparent 50%
+            );
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .project-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                45deg,
+                transparent 0%,
+                rgba(0, 255, 157, 0.1) 50%,
+                transparent 100%
+            );
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1;
+        }
+        
+        .project-card:hover {
+            animation-play-state: paused;
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(0, 255, 157, 0.15);
+            border-color: var(--primary);
+            background: rgba(0, 0, 0, 0.1);
+        }
+        
+        .project-card:hover::before {
+            opacity: 1;
+        }
+        
+        .project-card:hover::after {
+            opacity: 1;
+            animation: shine 1.5s infinite;
+        }
+        
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%) translateY(-100%);
+            }
+            100% {
+                transform: translateX(100%) translateY(100%);
+            }
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.3);
+        }
+
+        .project-header {
+            background: linear-gradient(135deg, rgba(0, 255, 157, 0.03), rgba(0, 184, 255, 0.03));
+            padding: 40px 30px;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(0, 255, 157, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .project-card:hover .project-header {
+            background: linear-gradient(135deg, rgba(0, 255, 157, 0.1), rgba(0, 184, 255, 0.1));
+            border-bottom: 1px solid var(--primary);
+        }
+        
+        .project-header h3 {
+            text-shadow: 0 0 10px var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5em;
+            transition: all 0.3s;
+        }
+        
+        .project-header i {
+            font-size: 1.3em;
+            color: var(--primary);
+            transition: all 0.3s;
+            filter: drop-shadow(0 0 8px var(--primary));
+        }
+        
+        .project-card:hover .project-header i {
+            color: var(--accent);
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 12px var(--accent));
+        }
+        
+        .project-card:hover .project-header h3 {
+            text-shadow: 0 0 15px var(--accent);
+            transform: translateX(5px);
+        }
+
+        .project-header:before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 10s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .project-card h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-content {
+            padding: 30px;
+        }
+
+        .project-content p {
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .tag {
+            background: rgba(0, 255, 157, 0.1);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            color: var(--primary);
+            border: 1px solid rgba(0, 255, 157, 0.3);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tag:hover {
+            background: rgba(0, 255, 157, 0.2);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 157, 0.2);
+        }
+        
+        .project-content {
+            padding: 30px;
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s;
+            background: transparent;
+        }
+        
+        .project-content p {
+            color: var(--gray);
+            margin-bottom: 25px;
+            line-height: 1.6;
+            transition: all 0.3s;
+        }
+        
+        .project-card:hover .project-content p {
+            color: var(--light);
+        }
+        
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        /* Contact Section */
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact-content p {
+            font-size: 18px;
+            color: var(--gray);
+            margin-bottom: 40px;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--light);
+            text-decoration: none;
+            padding: 15px 30px;
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            transition: all 0.3s;
+        }
+
+        .contact-link:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid rgba(99, 102, 241, 0.2);
+            color: var(--gray);
+        }
+
+        /* Dialogflow Chatbot Styling - Premium Edition */
+        df-messenger {
+            --df-messenger-bot-message: rgba(0, 255, 157, 0.15);
+            --df-messenger-button-titlebar-color: #00ff9d;
+            --df-messenger-chat-background-color: rgba(10, 10, 15, 0.98);
+            --df-messenger-font-color: #e0e0e0;
+            --df-messenger-send-icon: #00ff9d;
+            --df-messenger-user-message: rgba(0, 184, 255, 0.25);
+            --df-messenger-input-box-color: rgba(20, 20, 35, 0.95);
+            --df-messenger-input-font-color: #e0e0e0;
+            --df-messenger-input-placeholder-font-color: #888;
+            --df-messenger-minimized-chat-close-icon-color: #00ff9d;
+            --df-messenger-font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif;
+            --df-messenger-titlebar-font-color: #00ff9d;
+            --df-messenger-primary-color: #00ff9d;
+            z-index: 999;
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif !important;
+        }
+
+        /* Premium Chatbot Button with Advanced Effects */
+        df-messenger::part(chat-bubble) {
+            background: linear-gradient(135deg, #00ff9d 0%, #00d4aa 50%, #00b8ff 100%) !important;
+            box-shadow: 0 8px 32px rgba(0, 255, 157, 0.5),
+                        0 0 60px rgba(0, 255, 157, 0.3),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+            animation: pulse-glow-premium 3s ease-in-out infinite, float-bubble 4s ease-in-out infinite;
+            border: 2px solid rgba(0, 255, 157, 0.6);
+            position: relative;
+            overflow: hidden;
+            width: 64px !important;
+            height: 64px !important;
+        }
+
+        df-messenger::part(chat-bubble)::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(255, 255, 255, 0.1),
+                transparent
+            );
+            animation: shine-effect 3s infinite;
+        }
+
+        @keyframes pulse-glow-premium {
+            0%, 100% {
+                box-shadow: 0 8px 32px rgba(0, 255, 157, 0.5),
+                            0 0 60px rgba(0, 255, 157, 0.3),
+                            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: 0 12px 48px rgba(0, 255, 157, 0.7),
+                            0 0 90px rgba(0, 255, 157, 0.5),
+                            0 0 120px rgba(0, 184, 255, 0.3),
+                            inset 0 1px 0 rgba(255, 255, 255, 0.3);
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes float-bubble {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-5px) rotate(1deg);
+            }
+            75% {
+                transform: translateY(-3px) rotate(-1deg);
+            }
+        }
+
+        @keyframes shine-effect {
+            0% {
+                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            }
+            100% {
+                transform: translateX(100%) translateY(100%) rotate(45deg);
+            }
+        }
+
+        /* Premium Chat Window with Glassmorphism */
+        df-messenger::part(chat-wrapper) {
+            background: linear-gradient(
+                135deg,
+                rgba(10, 10, 15, 0.98) 0%,
+                rgba(15, 15, 25, 0.95) 100%
+            ) !important;
+            backdrop-filter: blur(30px) saturate(180%) !important;
+            -webkit-backdrop-filter: blur(30px) saturate(180%) !important;
+            border: 2px solid transparent !important;
+            background-image: 
+                linear-gradient(135deg, rgba(10, 10, 15, 0.98), rgba(15, 15, 25, 0.95)),
+                linear-gradient(135deg, rgba(0, 255, 157, 0.4), rgba(0, 184, 255, 0.4)) !important;
+            background-origin: border-box !important;
+            background-clip: padding-box, border-box !important;
+            border-radius: 24px !important;
+            box-shadow: 
+                0 20px 60px rgba(0, 255, 157, 0.25),
+                0 0 120px rgba(0, 184, 255, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+            animation: chat-window-appear 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        @keyframes chat-window-appear {
+            0% {
+                opacity: 0;
+                transform: scale(0.8) translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        /* Stunning Title Bar - Ultra Modern */
+        df-messenger::part(titlebar) {
+            background: linear-gradient(
+                135deg,
+                rgba(0, 255, 157, 0.25) 0%,
+                rgba(0, 184, 255, 0.2) 50%,
+                rgba(0, 255, 157, 0.15) 100%
+            ) !important;
+            border-bottom: 2px solid rgba(0, 255, 157, 0.6) !important;
+            padding: 28px 24px !important;
+            border-radius: 24px 24px 0 0 !important;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px) !important;
+        }
+
+        df-messenger::part(titlebar)::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.15),
+                transparent
+            );
+            animation: titlebar-shimmer 3s infinite;
+        }
+
+        @keyframes titlebar-shimmer {
+            0% {
+                left: -100%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+
+        df-messenger::part(titlebar-title) {
+            color: #00ff9d !important;
+            font-weight: 700 !important;
+            font-size: 20px !important;
+            font-family: 'Inter', 'Segoe UI', sans-serif !important;
+            text-shadow: 
+                0 2px 10px rgba(0, 255, 157, 0.6),
+                0 0 30px rgba(0, 255, 157, 0.4);
+            letter-spacing: -0.3px;
+            animation: title-glow 2s ease-in-out infinite;
+        }
+
+        @keyframes title-glow {
+            0%, 100% {
+                text-shadow: 
+                    0 2px 10px rgba(0, 255, 157, 0.4),
+                    0 0 30px rgba(0, 255, 157, 0.3);
+            }
+            50% {
+                text-shadow: 
+                    0 2px 15px rgba(0, 255, 157, 0.6),
+                    0 0 40px rgba(0, 255, 157, 0.5),
+                    0 0 60px rgba(0, 184, 255, 0.3);
+            }
+        }
+
+        /* Beautiful Bot Messages - Modern Design */
+        df-messenger::part(message-bot) {
+            background: linear-gradient(
+                135deg,
+                rgba(0, 255, 157, 0.18) 0%,
+                rgba(0, 255, 157, 0.1) 100%
+            ) !important;
+            border: 1.5px solid rgba(0, 255, 157, 0.5) !important;
+            border-radius: 20px 20px 20px 6px !important;
+            color: #e0e0e0 !important;
+            padding: 16px 20px !important;
+            font-family: 'Inter', 'Segoe UI', sans-serif !important;
+            font-size: 15px !important;
+            font-weight: 500 !important;
+            line-height: 1.6 !important;
+            letter-spacing: -0.2px !important;
+            box-shadow: 
+                0 6px 20px rgba(0, 255, 157, 0.2),
+                inset 0 1px 0 rgba(0, 255, 157, 0.1);
+            animation: message-slide-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+
+        df-messenger::part(message-bot)::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(0, 255, 157, 0.15),
+                transparent
+            );
+            animation: message-shimmer 2.5s infinite;
+        }
+
+        @keyframes message-slide-in {
+            0% {
+                opacity: 0;
+                transform: translateX(-30px) scale(0.95);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+            }
+        }
+
+        @keyframes message-shimmer {
+            0% {
+                left: -100%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+
+        /* Stunning User Messages - Modern Design */
+        df-messenger::part(message-user) {
+            background: linear-gradient(
+                135deg,
+                rgba(0, 184, 255, 0.3) 0%,
+                rgba(0, 184, 255, 0.18) 100%
+            ) !important;
+            border: 1.5px solid rgba(0, 184, 255, 0.6) !important;
+            border-radius: 20px 20px 6px 20px !important;
+            color: #e8f4ff !important;
+            padding: 16px 20px !important;
+            font-family: 'Inter', 'Segoe UI', sans-serif !important;
+            font-size: 15px !important;
+            font-weight: 600 !important;
+            line-height: 1.6 !important;
+            letter-spacing: -0.2px !important;
+            box-shadow: 
+                0 6px 20px rgba(0, 184, 255, 0.25),
+                inset 0 1px 0 rgba(0, 184, 255, 0.15);
+            animation: message-slide-in-right 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            backdrop-filter: blur(5px);
+        }
+
+        @keyframes message-slide-in-right {
+            0% {
+                opacity: 0;
+                transform: translateX(30px) scale(0.95);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+            }
+        }
+
+        /* Premium Input Field - Ultra Modern Enhanced */
+        df-messenger::part(input-box) {
+            background: linear-gradient(
+                135deg,
+                rgba(15, 15, 30, 0.98) 0%,
+                rgba(20, 20, 40, 0.95) 100%
+            ) !important;
+            border: 2px solid transparent !important;
+            background-image: 
+                linear-gradient(135deg, rgba(15, 15, 30, 0.98), rgba(20, 20, 40, 0.95)),
+                linear-gradient(135deg, rgba(0, 255, 157, 0.5), rgba(0, 184, 255, 0.4)) !important;
+            background-origin: border-box !important;
+            background-clip: padding-box, border-box !important;
+            border-radius: 32px !important;
+            color: #e8e8e8 !important;
+            padding: 18px 28px !important;
+            font-size: 15px !important;
+            font-family: 'Inter', 'Segoe UI', sans-serif !important;
+            font-weight: 500 !important;
+            letter-spacing: -0.2px !important;
+            line-height: 1.5 !important;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 
+                inset 0 2px 8px rgba(0, 0, 0, 0.5),
+                0 4px 15px rgba(0, 255, 157, 0.15),
+                0 0 0 1px rgba(0, 255, 157, 0.1);
+            position: relative;
+        }
+
+        df-messenger::part(input-box):hover {
+            background-image: 
+                linear-gradient(135deg, rgba(15, 15, 30, 1), rgba(20, 20, 40, 0.98)),
+                linear-gradient(135deg, rgba(0, 255, 157, 0.6), rgba(0, 184, 255, 0.5)) !important;
+            box-shadow: 
+                inset 0 2px 8px rgba(0, 0, 0, 0.5),
+                0 6px 20px rgba(0, 255, 157, 0.25),
+                0 0 30px rgba(0, 255, 157, 0.15);
+            transform: translateY(-2px);
+        }
+
+        df-messenger::part(input-box):focus {
+            background-image: 
+                linear-gradient(135deg, rgba(15, 15, 30, 1), rgba(20, 20, 40, 1)),
+                linear-gradient(135deg, #00ff9d, #00b8ff) !important;
+            box-shadow: 
+                0 0 30px rgba(0, 255, 157, 0.6),
+                0 0 50px rgba(0, 255, 157, 0.3),
+                0 8px 25px rgba(0, 255, 157, 0.4),
+                inset 0 2px 8px rgba(0, 0, 0, 0.5),
+                inset 0 0 20px rgba(0, 255, 157, 0.1) !important;
+            outline: none !important;
+            transform: translateY(-3px) scale(1.01);
+            color: #f0f0f0 !important;
+        }
+
+        /* Input wrapper styling */
+        df-messenger::part(input-wrapper) {
+            padding: 20px !important;
+            background: linear-gradient(
+                180deg,
+                rgba(0, 0, 0, 0.1) 0%,
+                rgba(0, 0, 0, 0.2) 100%
+            ) !important;
+            border-top: 1px solid rgba(0, 255, 157, 0.2) !important;
+        }
+
+        /* Animated Send Button - Enhanced */
+        df-messenger::part(send-icon) {
+            color: #00ff9d !important;
+            filter: drop-shadow(0 0 10px rgba(0, 255, 157, 0.7));
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        df-messenger::part(send-icon):hover {
+            color: #00b8ff !important;
+            filter: drop-shadow(0 0 15px rgba(0, 184, 255, 0.9))
+                    drop-shadow(0 0 25px rgba(0, 184, 255, 0.5));
+            transform: scale(1.2) rotate(15deg);
+            animation: pulse-send 0.6s ease-in-out;
+        }
+
+        df-messenger::part(send-icon):active {
+            transform: scale(0.9) rotate(0deg);
+            filter: drop-shadow(0 0 20px rgba(0, 255, 157, 1));
+        }
+
+        @keyframes pulse-send {
+            0%, 100% {
+                transform: scale(1.2) rotate(15deg);
+            }
+            50% {
+                transform: scale(1.3) rotate(20deg);
+            }
+        }
+
+        /* Send button container */
+        df-messenger::part(send-button) {
+            background: linear-gradient(
+                135deg,
+                rgba(0, 255, 157, 0.15) 0%,
+                rgba(0, 184, 255, 0.1) 100%
+            ) !important;
+            border-radius: 50% !important;
+            padding: 10px !important;
+            transition: all 0.3s ease !important;
+        }
+
+        df-messenger::part(send-button):hover {
+            background: linear-gradient(
+                135deg,
+                rgba(0, 255, 157, 0.25) 0%,
+                rgba(0, 184, 255, 0.2) 100%
+            ) !important;
+            transform: scale(1.1) !important;
+        }
+
+        /* Premium Scrollbar */
+        df-messenger::part(chat-scroller)::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        df-messenger::part(chat-scroller)::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+            margin: 5px;
+        }
+
+        df-messenger::part(chat-scroller)::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #00ff9d 0%, #00b8ff 100%);
+            border-radius: 5px;
+            border: 2px solid rgba(0, 0, 0, 0.3);
+            box-shadow: 0 0 10px rgba(0, 255, 157, 0.5);
+        }
+
+        df-messenger::part(chat-scroller)::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #00b8ff 0%, #00ff9d 100%);
+            box-shadow: 0 0 15px rgba(0, 184, 255, 0.7);
+        }
+
+        /* Animated Typing Indicator */
+        df-messenger::part(typing-indicator) {
+            color: #00ff9d !important;
+            animation: typing-pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes typing-pulse {
+            0%, 100% {
+                opacity: 0.6;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* Premium Close Button */
+        df-messenger::part(close-icon) {
+            color: #00ff9d !important;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            filter: drop-shadow(0 0 5px rgba(0, 255, 157, 0.5));
+        }
+
+        df-messenger::part(close-icon):hover {
+            color: #ff4757 !important;
+            transform: rotate(180deg) scale(1.2);
+            filter: drop-shadow(0 0 10px rgba(255, 71, 87, 0.7));
+        }
+
+        /* Beautiful Suggestion Chips - Modern Design */
+        df-messenger::part(suggestion-chip) {
+            background: linear-gradient(
+                135deg,
+                rgba(0, 255, 157, 0.15) 0%,
+                rgba(0, 255, 157, 0.1) 100%
+            ) !important;
+            border: 1.5px solid rgba(0, 255, 157, 0.6) !important;
+            border-radius: 26px !important;
+            color: #00ff9d !important;
+            padding: 12px 22px !important;
+            font-family: 'Inter', 'Segoe UI', sans-serif !important;
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            letter-spacing: -0.2px !important;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 
+                0 3px 12px rgba(0, 255, 157, 0.15),
+                inset 0 1px 0 rgba(0, 255, 157, 0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        df-messenger::part(suggestion-chip):hover {
+            background: linear-gradient(
+                135deg,
+                rgba(0, 255, 157, 0.3) 0%,
+                rgba(0, 184, 255, 0.2) 100%
+            ) !important;
+            border-color: #00ff9d !important;
+            transform: translateY(-4px) scale(1.08);
+            box-shadow: 
+                0 10px 25px rgba(0, 255, 157, 0.35),
+                0 0 40px rgba(0, 255, 157, 0.25),
+                inset 0 1px 0 rgba(0, 255, 157, 0.15);
+            color: #e0f7ed !important;
+        }
+
+        df-messenger::part(suggestion-chip):active {
+            transform: translateY(-2px) scale(1.04);
+            box-shadow: 
+                0 5px 15px rgba(0, 255, 157, 0.25),
+                0 0 30px rgba(0, 255, 157, 0.2);
+        }
+
+        /* Additional Override Styles for Dialogflow */
+        df-messenger * {
+            font-family: 'Inter', 'Segoe UI', sans-serif !important;
+        }
+
+        /* Force text colors throughout */
+        df-messenger div,
+        df-messenger span,
+        df-messenger p {
+            color: inherit !important;
+        }
+
+        /* Override any default white backgrounds */
+        df-messenger [style*="background: white"],
+        df-messenger [style*="background: #fff"],
+        df-messenger [style*="background-color: white"],
+        df-messenger [style*="background-color: #fff"] {
+            background: transparent !important;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            df-messenger {
+                bottom: 15px;
+                right: 15px;
+            }
+
+            df-messenger::part(chat-bubble) {
+                width: 56px !important;
+                height: 56px !important;
+            }
+
+            df-messenger::part(chat-wrapper) {
+                width: calc(100vw - 30px) !important;
+                max-width: 420px !important;
+                height: 550px !important;
+                border-radius: 20px !important;
+            }
+
+            df-messenger::part(titlebar) {
+                padding: 18px !important;
+            }
+
+            df-messenger::part(titlebar-title) {
+                font-size: 17px !important;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .container {
+                padding: 0 20px;
+            }
+            
+            .projects-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 48px;
+            }
+
+            .section-title {
+                font-size: 36px;
+            }
+
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+
+            .hero {
+                padding: 60px 0;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero .subtitle {
+                font-size: 20px;
+            }
+
+            .hero p {
+                font-size: 16px;
+                margin-bottom: 30px;
+            }
+
+            .nav-content {
+                flex-direction: column;
+                gap: 10px;
+                padding: 10px 0;
+            }
+
+            .language-switcher {
+                order: -1;
+                margin-bottom: 5px;
+            }
+
+            .lang-btn {
+                padding: 6px 10px;
+                font-size: 11px;
+                min-width: 45px;
+                gap: 3px;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .nav-links {
+                gap: 10px;
+                flex-wrap: wrap;
+                justify-content: center;
+                font-size: 14px;
+            }
+
+            .nav-links li a {
+                padding: 6px 12px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                text-align: center;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .project-card {
+                margin: 0 auto;
+                max-width: 400px;
+            }
+
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .contact-link {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+
+            .skill-card {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                padding: 8px 0;
+            }
+
+            .nav-content {
+                gap: 8px;
+            }
+
+            .language-switcher {
+                gap: 6px;
+            }
+
+            .lang-btn {
+                padding: 5px 8px;
+                font-size: 10px;
+                min-width: 40px;
+                border-radius: 6px;
+            }
+
+            .logo {
+                font-size: 18px;
+            }
+
+            .nav-links {
+                gap: 8px;
+            }
+
+            .nav-links li a {
+                padding: 5px 10px;
+                font-size: 13px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .hero .subtitle {
+                font-size: 18px;
+            }
+
+            .section-title {
+                font-size: 28px;
+                margin-bottom: 40px;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .project-header {
+                padding: 30px 20px;
+            }
+
+            .project-header h3 {
+                font-size: 1.2em;
+            }
+
+            .project-content {
+                padding: 20px;
+            }
+
+            .project-content p {
+                font-size: 14px;
+            }
+
+            .tag {
+                font-size: 12px;
+                padding: 4px 12px;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+        }
+
+        /* Touch Device Optimizations */
+        @media (hover: none) {
+            .project-card:hover {
+                transform: none;
+            }
+
+            .skill-card:hover {
+                transform: none;
+            }
+
+            .btn:hover {
+                transform: none;
+            }
+
+            .contact-link:hover {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrixCanvas"></canvas>
+    <div class="neural-network" id="neuralNetwork"></div>
+
+    <nav>
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo"><i class="fas fa-robot"></i> AI.ssam</div>
+                <div class="language-switcher">
+                    <button class="lang-btn" data-lang="en">🇬🇧 EN</button>
+                    <button class="lang-btn" data-lang="fr">🇫🇷 FR</button>
+                    <button class="lang-btn" data-lang="ar">🇲🇦 ع</button>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#about" data-translate="nav-about">About</a></li>
+                    <li><a href="#skills" data-translate="nav-skills">Skills</a></li>
+                    <li><a href="#projects" data-translate="nav-projects">Projects</a></li>
+                    <li><a href="#contact" data-translate="nav-contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="profile-section">
+        <div class="container">
+            <div class="profile-frame">
+                <img src="portfolio_image.png" alt="Profile Photo" class="profile-image">
+            </div>
+            <a href="my_cv.pdf" class="cv-btn" download>
+                <i class="fas fa-file-download"></i>
+                <span data-translate="cv-download">Download My CV</span>
+            </a>
+        </div>
+    </section>
+
+    <section class="hero">
+        <div class="container">
+            <h1 data-text="AI Engineer" data-translate="hero-title">AI Engineer</h1>
+            <div class="subtitle" data-translate="hero-subtitle">Artificial Intelligence & Digital Transformation</div>
+            <div class="location"><i class="fas fa-map-marker-alt"></i> <span data-translate="hero-location">Al Hoceima, Morocco</span></div>
+            <p data-translate="hero-description">Final year engineering student specializing in Digital Transformation and AI, seeking an internship opportunity to apply innovative solutions and contribute to cutting-edge projects.</p>
+            <div class="cta-buttons">
+                <a href="#projects" class="btn btn-primary" data-translate="cta-work">View My Work</a>
+                <a href="#contact" class="btn btn-secondary" data-translate="cta-contact">Get In Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title" data-translate="about-title">About Me</h2>
+            <div style="max-width: 800px; margin: 0 auto; text-align: center; font-size: 18px; color: var(--gray);">
+                <p style="margin-bottom: 20px;" data-translate="about-p1">
+                    I am a passionate engineering student at Applied Science School in Al Hoceima, specializing in Digital Transformation and Artificial Intelligence. With a strong foundation in modern technologies and a drive for innovation, I'm eager to contribute to transformative projects.
+                </p>
+                <p data-translate="about-p2">
+                    Currently seeking an internship for my final education project, where I can apply my technical skills, collaborate with industry professionals, and create impactful solutions that bridge technology and real-world challenges.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="container">
+            <h2 class="section-title" data-translate="skills-title">Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3 data-translate="skills-ai-title">🤖 Artificial Intelligence</h3>
+                    <ul>
+                        <li data-translate="skills-ai-1">Machine Learning</li>
+                        <li data-translate="skills-ai-2">Deep Learning</li>
+                        <li data-translate="skills-ai-3">Natural Language Processing</li>
+                        <li data-translate="skills-ai-4">Computer Vision</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3 data-translate="skills-prog-title">💻 Programming</h3>
+                    <ul>
+                        <li data-translate="skills-prog-1">Python</li>
+                        <li data-translate="skills-prog-2">JavaScript</li>
+                        <li data-translate="skills-prog-3">Java</li>
+                        <li data-translate="skills-prog-4">C/C++</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3 data-translate="skills-tools-title">🔧 Frameworks & Tools</h3>
+                    <ul>
+                        <li data-translate="skills-tools-1">TensorFlow / PyTorch</li>
+                        <li data-translate="skills-tools-2">React / Node.js</li>
+                        <li data-translate="skills-tools-3">Docker / Kubernetes</li>
+                        <li data-translate="skills-tools-4">Git / GitHub</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3 data-translate="skills-data-title">📊 Data & Analytics</h3>
+                    <ul>
+                        <li data-translate="skills-data-1">Data Analysis</li>
+                        <li data-translate="skills-data-2">SQL / NoSQL</li>
+                        <li data-translate="skills-data-3">Data Visualization</li>
+                        <li data-translate="skills-data-4">Big Data Technologies</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title" data-translate="projects-title">Featured Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 data-translate="project1-title"><i class="fas fa-industry"></i> 🏭 Industrial AI at Maghreb Steel</h3>
+                    </div>
+                    <div class="project-content">
+                        <p data-translate="project1-desc">Led a crucial industrial optimization project at Maghreb Steel's Steckel Mill in Mohammedia, developing an AI-driven system to predict and minimize drop rates in hot rolling processes. Implemented comprehensive data analytics pipeline and machine learning models for real-time production insights, resulting in enhanced efficiency and waste reduction recommendations.</p>
+                        <div class="project-tags">
+                            <span class="tag" data-translate="tag-ml">Machine Learning</span>
+                            <span class="tag" data-translate="tag-python">Python</span>
+                            <span class="tag" data-translate="tag-pandas">Pandas</span>
+                            <span class="tag" data-translate="tag-sklearn">Scikit-learn</span>
+                            <span class="tag" data-translate="tag-industrial-ai">Industrial AI</span>
+                            <span class="tag" data-translate="tag-data-analysis">Data Analysis</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 data-translate="project2-title"><i class="fas fa-apple-alt"></i> 🍎 Nutri-Match</h3>
+                    </div>
+                    <div class="project-content">
+                        <p data-translate="project2-desc">Engineered a sophisticated Big Data-based food recommendation system using Apache Spark and Databricks. Processed large-scale nutritional datasets to provide personalized food suggestions based on nutritional similarity and user preferences. Implemented K-Means clustering for intelligent food grouping and developed a Flask web interface with MongoDB integration for real-time recommendations.</p>
+                        <div class="project-tags">
+                            <span class="tag" data-translate="tag-spark">Apache Spark</span>
+                            <span class="tag" data-translate="tag-pyspark">PySpark</span>
+                            <span class="tag" data-translate="tag-databricks">Databricks</span>
+                            <span class="tag" data-translate="tag-flask">Flask</span>
+                            <span class="tag" data-translate="tag-mongodb">MongoDB</span>
+                            <span class="tag" data-translate="tag-kmeans">K-Means</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 data-translate="project3-title"><i class="fas fa-face-smile"></i> 😊 Facial Emotion Recognition</h3>
+                    </div>
+                    <div class="project-content">
+                        <p data-translate="project3-desc">Engineered a sophisticated deep learning system for real-time facial emotion recognition. The model processes both static images and live video streams, accurately detecting emotions like happiness, sadness, anger, and surprise. Enhanced accuracy through advanced data augmentation and model fine-tuning, showcasing practical applications in human-computer interaction.</p>
+                        <div class="project-tags">
+                            <span class="tag" data-translate="tag-tensorflow">TensorFlow</span>
+                            <span class="tag" data-translate="tag-keras">Keras</span>
+                            <span class="tag" data-translate="tag-opencv">OpenCV</span>
+                            <span class="tag" data-translate="tag-cnn">CNNs</span>
+                            <span class="tag" data-translate="tag-deep-learning">Deep Learning</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 data-translate="project4-title"><i class="fas fa-cube"></i> 🧩 3D Rubik's Cube Solver</h3>
+                    </div>
+                    <div class="project-content">
+                        <p data-translate="project4-desc">Developed an intelligent Rubik's Cube solver using Q-learning, featuring a 3D interactive visualization. The project combines algorithmic reasoning with reinforcement learning to find efficient cube-solving solutions, demonstrating practical application of AI in puzzle-solving domains.</p>
+                        <div class="project-tags">
+                            <span class="tag" data-translate="tag-python">Python</span>
+                            <span class="tag" data-translate="tag-raylib">RaylibPy</span>
+                            <span class="tag" data-translate="tag-rl">Reinforcement Learning</span>
+                            <span class="tag" data-translate="tag-qlearning">Q-Learning</span>
+                            <span class="tag" data-translate="tag-3d">3D Modeling</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 data-translate="project5-title"><i class="fas fa-cloud"></i> ☁️ OpenStack – Deployment & Optimization</h3>
+                    </div>
+                    <div class="project-content">
+                        <p data-translate="project5-desc">Successfully deployed and optimized an OpenStack cloud computing platform, implementing comprehensive virtualization, networking, and storage services. Enhanced system efficiency through resource management automation and infrastructure optimization.</p>
+                        <div class="project-tags">
+                            <span class="tag" data-translate="tag-openstack">OpenStack</span>
+                            <span class="tag" data-translate="tag-linux">Linux</span>
+                            <span class="tag" data-translate="tag-virtualization">Virtualization</span>
+                            <span class="tag" data-translate="tag-cloud">Cloud Computing</span>
+                            <span class="tag" data-translate="tag-networking">Networking</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 data-translate="project6-title"><i class="fas fa-school"></i> 🎓 TDIA-Services</h3>
+                    </div>
+                    <div class="project-content">
+                        <p data-translate="project6-desc">Led the development of a comprehensive web platform for ENSAH school, facilitating seamless communication between teachers and students. The platform features grade management, course sharing, and announcement systems, improving academic service delivery.</p>
+                        <div class="project-tags">
+                            <span class="tag" data-translate="tag-laravel">Laravel 11</span>
+                            <span class="tag" data-translate="tag-php">PHP</span>
+                            <span class="tag" data-translate="tag-bootstrap">Bootstrap</span>
+                            <span class="tag" data-translate="tag-ajax">AJAX</span>
+                            <span class="tag" data-translate="tag-mysql">MySQL</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 data-translate="project7-title"><i class="fas fa-gamepad"></i> 🎮 2-Level Interactive Game</h3>
+                    </div>
+                    <div class="project-content">
+                        <p data-translate="project7-desc">Developed a captivating 2D game using Pygame framework, featuring two unique levels with distinct environments, sounds, and visual styles. Implemented core game mechanics including player movement, collision detection, and progression logic. Created an immersive experience through geometric designs and dynamic sound effects, demonstrating proficiency in game development and multimedia integration.</p>
+                        <div class="project-tags">
+                            <span class="tag" data-translate="tag-python">Python</span>
+                            <span class="tag" data-translate="tag-pygame">Pygame</span>
+                            <span class="tag" data-translate="tag-game-dev">Game Development</span>
+                            <span class="tag" data-translate="tag-sound">Sound Design</span>
+                            <span class="tag" data-translate="tag-graphics">2D Graphics</span>
+                            <span class="tag" data-translate="tag-collision">Collision Detection</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 data-translate="project8-title"><i class="fas fa-book"></i> 📚 Library Management System</h3>
+                    </div>
+                    <div class="project-content">
+                        <p data-translate="project8-desc">Developed a console-based Library Management System in C to manage users and books efficiently. The system allows administrators to add, update, or remove books, manage user records, and track borrowing activities. Features include checking book availability in real-time and maintaining borrowing history using file handling for data persistence.</p>
+                        <div class="project-tags">
+                            <span class="tag" data-translate="tag-c">C Programming</span>
+                            <span class="tag" data-translate="tag-file-handling">File Handling</span>
+                            <span class="tag" data-translate="tag-structs">Structs</span>
+                            <span class="tag" data-translate="tag-console">Console Application</span>
+                            <span class="tag" data-translate="tag-data-management">Data Management</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 data-translate="project9-title"><i class="fas fa-shield-alt"></i> 🔒 Secure VPN Infrastructure with OpenVPN</h3>
+                    </div>
+                    <div class="project-content">
+                        <p data-translate="project9-desc">Implemented and tested a secure VPN using OpenVPN to ensure encrypted communication between an Ubuntu 22.04 server and a Windows 11 client. Configured server setup, certificate generation (CA, server, client), and firewall rules (UFW). Utilized AES-256 encryption, TLS-auth, and IP masking to enhance data protection. Successfully established a secure tunnel with verified encrypted traffic.</p>
+                        <div class="project-tags">
+                            <span class="tag" data-translate="tag-openvpn">OpenVPN</span>
+                            <span class="tag" data-translate="tag-easyrsa">Easy-RSA</span>
+                            <span class="tag" data-translate="tag-ubuntu">Ubuntu 22.04</span>
+                            <span class="tag" data-translate="tag-security">Security</span>
+                            <span class="tag" data-translate="tag-encryption">AES-256</span>
+                            <span class="tag" data-translate="tag-networking">Networking</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <div class="contact-content">
+                <h2 class="section-title" data-translate="contact-title">Let's Connect</h2>
+                <p data-translate="contact-desc">I'm currently seeking an internship opportunity for my final education project. Feel free to reach out if you'd like to discuss potential collaborations or opportunities!</p>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=issamlakhyari452@gmail.com" target="_blank" class="btn btn-primary">
+  <span data-translate="contact-email">📧 Send Me an Email</span>
+</a>
+                <div class="contact-links">
+                    <a href="https://www.linkedin.com/in/aissam-lakhyari-14b3692a7/" target="_blank" class="contact-link">
+                        <span data-translate="contact-linkedin">💼 LinkedIn</span>
+                    </a>
+                    <a href="https://github.com/Aissam234" target="_blank" class="contact-link">
+                        <span data-translate="contact-github">👨‍💻 GitHub</span>
+                    </a>
+                    <a href="https://wa.me/212690992767" target="_blank" class="contact-link">
+                        <span data-translate="contact-whatsapp">📱 WhatsApp</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dialogflow Chatbot -->
+    <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+    <df-messenger
+      intent="WELCOME"
+      chat-title="Aissam's Chatbot"
+      agent-id="1c914b44-6aa8-4abe-9af8-5ee9d109951c"
+      language-code="en"
+      chat-icon="https://cdn-icons-png.flaticon.com/512/2171/2171991.png"
+      expand="false"
+    ></df-messenger>
+    
+    <style>
+        /* Direct styling for Dialogflow Messenger - More specific */
+        df-messenger {
+            --df-messenger-bot-message: #1a1a2e;
+            --df-messenger-button-titlebar-color: #00ff9d;
+            --df-messenger-chat-background-color: #0a0a0f;
+            --df-messenger-font-color: #e0e0e0;
+            --df-messenger-send-icon: #00ff9d;
+            --df-messenger-user-message: #1a1a3e;
+            --df-messenger-input-box-color: #141423;
+            --df-messenger-input-font-color: #e8e8e8;
+            --df-messenger-input-placeholder-font-color: #888;
+            --df-messenger-minimized-chat-close-icon-color: #00ff9d;
+            --df-messenger-font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif;
+            --df-messenger-titlebar-font-color: #00ff9d;
+            --df-messenger-primary-color: #00ff9d;
+            --df-messenger-border-radius: 24px;
+            --df-messenger-input-border-color: #00ff9d;
+            --df-messenger-input-padding: 18px 28px;
+            --df-messenger-message-border-radius: 20px;
+            --df-messenger-message-padding: 16px 20px;
+        }
+    </style>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Lakhyari Aissam. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Set animation delays for cards
+        document.querySelectorAll('.project-card').forEach((card, index) => {
+            card.style.setProperty('--card-index', index);
+        });
+        
+        document.querySelectorAll('.skill-card').forEach((card, index) => {
+            card.style.setProperty('--card-index', index);
+        });
+
+        // Handle mobile menu
+        const mobileMenuButton = document.createElement('button');
+        mobileMenuButton.className = 'mobile-menu-button';
+        mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
+        document.querySelector('.nav-content').prepend(mobileMenuButton);
+
+        const navLinks = document.querySelector('.nav-links');
+        mobileMenuButton.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuButton.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.nav-content')) {
+                navLinks.classList.remove('active');
+                mobileMenuButton.classList.remove('active');
+            }
+        });
+
+        // Matrix rain animation
+        const canvas = document.getElementById('matrixCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Set canvas size
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        // Matrix rain configuration
+        const fontSize = 14;
+        const columns = Math.floor(canvas.width / fontSize);
+        const drops = new Array(columns).fill(1);
+        const characters = '01AISSAM';
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#00ff9d';
+            ctx.font = fontSize + 'px monospace';
+            
+            for(let i = 0; i < drops.length; i++) {
+                const text = characters[Math.floor(Math.random() * characters.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                
+                if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        // Neural network background
+        function createNeuralNetwork() {
+            const container = document.getElementById('neuralNetwork');
+            const numNodes = 30;
+            const nodes = [];
+            
+            // Create nodes
+            for (let i = 0; i < numNodes; i++) {
+                const node = document.createElement('div');
+                node.className = 'node';
+                node.style.left = Math.random() * 100 + '%';
+                node.style.top = Math.random() * 100 + '%';
+                container.appendChild(node);
+                nodes.push({
+                    element: node,
+                    x: parseFloat(node.style.left),
+                    y: parseFloat(node.style.top)
+                });
+            }
+            
+            // Create connections
+            nodes.forEach((node, i) => {
+                nodes.slice(i + 1).forEach(otherNode => {
+                    const dx = otherNode.x - node.x;
+                    const dy = otherNode.y - node.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < 30) {
+                        const connection = document.createElement('div');
+                        connection.className = 'connection';
+                        connection.style.width = distance + '%';
+                        connection.style.left = node.x + '%';
+                        connection.style.top = node.y + '%';
+                        connection.style.transform = `rotate(${Math.atan2(dy, dx)}rad)`;
+                        container.appendChild(connection);
+                    }
+                });
+            });
+        }
+
+        // Initialize animations
+        function init() {
+            createNeuralNetwork();
+            setInterval(drawMatrix, 50);
+            initLanguageSwitcher();
+        }
+
+        // Initialize everything when the page loads
+        window.addEventListener('DOMContentLoaded', () => {
+            init();
+            initLanguageSwitcher();
+        });
+
+        // Language translations
+        const translations = {
+            en: {
+                "nav-about": "About",
+                "nav-skills": "Skills",
+                "nav-projects": "Projects",
+                "nav-contact": "Contact",
+                "hero-title": "AI Engineer",
+                "hero-subtitle": "Artificial Intelligence & Digital Transformation",
+                "hero-location": "Al Hoceima, Morocco",
+                "hero-description": "Final year engineering student specializing in Digital Transformation and AI, seeking an internship opportunity to apply innovative solutions and contribute to cutting-edge projects.",
+                "cta-work": "View My Work",
+                "cta-contact": "Get In Touch",
+                "cv-download": "Download My CV",
+                "about-title": "About Me",
+                "about-p1": "I am a passionate engineering student at Applied Science School in Al Hoceima, specializing in Digital Transformation and Artificial Intelligence. With a strong foundation in modern technologies and a drive for innovation, I'm eager to contribute to transformative projects.",
+                "about-p2": "Currently seeking an internship for my final education project, where I can apply my technical skills, collaborate with industry professionals, and create impactful solutions that bridge technology and real-world challenges.",
+                "skills-title": "Technical Skills",
+                "skills-ai-title": "🤖 Artificial Intelligence",
+                "skills-ai-1": "Machine Learning",
+                "skills-ai-2": "Deep Learning",
+                "skills-ai-3": "Natural Language Processing",
+                "skills-ai-4": "Computer Vision",
+                "skills-prog-title": "💻 Programming",
+                "skills-prog-1": "Python",
+                "skills-prog-2": "JavaScript",
+                "skills-prog-3": "Java",
+                "skills-prog-4": "C/C++",
+                "skills-tools-title": "🔧 Frameworks & Tools",
+                "skills-tools-1": "TensorFlow / PyTorch",
+                "skills-tools-2": "React / Node.js",
+                "skills-tools-3": "Docker / Kubernetes",
+                "skills-tools-4": "Git / GitHub",
+                "skills-data-title": "📊 Data & Analytics",
+                "skills-data-1": "Data Analysis",
+                "skills-data-2": "SQL / NoSQL",
+                "skills-data-3": "Data Visualization",
+                "skills-data-4": "Big Data Technologies",
+                "projects-title": "Featured Projects",
+                "project1-title": "🏭 Industrial AI at Maghreb Steel",
+                "project1-desc": "Led a crucial industrial optimization project at Maghreb Steel's Steckel Mill in Mohammedia, developing an AI-driven system to predict and minimize drop rates in hot rolling processes. Implemented comprehensive data analytics pipeline and machine learning models for real-time production insights, resulting in enhanced efficiency and waste reduction recommendations.",
+                "project2-title": "🍎 Nutri-Match",
+                "project2-desc": "Engineered a sophisticated Big Data-based food recommendation system using Apache Spark and Databricks. Processed large-scale nutritional datasets to provide personalized food suggestions based on nutritional similarity and user preferences. Implemented K-Means clustering for intelligent food grouping and developed a Flask web interface with MongoDB integration for real-time recommendations.",
+                "project3-title": "😊 Facial Emotion Recognition",
+                "project3-desc": "Engineered a sophisticated deep learning system for real-time facial emotion recognition. The model processes both static images and live video streams, accurately detecting emotions like happiness, sadness, anger, and surprise. Enhanced accuracy through advanced data augmentation and model fine-tuning, showcasing practical applications in human-computer interaction.",
+                "project4-title": "🧩 3D Rubik's Cube Solver",
+                "project4-desc": "Developed an intelligent Rubik's Cube solver using Q-learning, featuring a 3D interactive visualization. The project combines algorithmic reasoning with reinforcement learning to find efficient cube-solving solutions, demonstrating practical application of AI in puzzle-solving domains.",
+                "tag-ml": "Machine Learning",
+                "tag-python": "Python",
+                "tag-pandas": "Pandas",
+                "tag-sklearn": "Scikit-learn",
+                "tag-industrial-ai": "Industrial AI",
+                "tag-data-analysis": "Data Analysis",
+                "tag-spark": "Apache Spark",
+                "tag-pyspark": "PySpark",
+                "tag-databricks": "Databricks",
+                "tag-flask": "Flask",
+                "tag-mongodb": "MongoDB",
+                "tag-kmeans": "K-Means",
+                "tag-tensorflow": "TensorFlow",
+                "tag-keras": "Keras",
+                "tag-opencv": "OpenCV",
+                "tag-cnn": "CNNs",
+                "tag-deep-learning": "Deep Learning",
+                "tag-raylib": "RaylibPy",
+                "tag-rl": "Reinforcement Learning",
+                "tag-qlearning": "Q-Learning",
+                "tag-3d": "3D Modeling",
+                "project5-title": "☁️ OpenStack – Deployment & Optimization",
+                "project5-desc": "Successfully deployed and optimized an OpenStack cloud computing platform, implementing comprehensive virtualization, networking, and storage services. Enhanced system efficiency through resource management automation and infrastructure optimization.",
+                "project6-title": "🎓 TDIA-Services",
+                "project6-desc": "Led the development of a comprehensive web platform for ENSAH school, facilitating seamless communication between teachers and students. The platform features grade management, course sharing, and announcement systems, improving academic service delivery.",
+                "project7-title": "🎮 2-Level Interactive Game",
+                "project7-desc": "Developed a captivating 2D game using Pygame framework, featuring two unique levels with distinct environments, sounds, and visual styles. Implemented core game mechanics including player movement, collision detection, and progression logic. Created an immersive experience through geometric designs and dynamic sound effects, demonstrating proficiency in game development and multimedia integration.",
+                "tag-openstack": "OpenStack",
+                "tag-linux": "Linux",
+                "tag-virtualization": "Virtualization",
+                "tag-cloud": "Cloud Computing",
+                "tag-networking": "Networking",
+                "tag-laravel": "Laravel 11",
+                "tag-php": "PHP",
+                "tag-bootstrap": "Bootstrap",
+                "tag-ajax": "AJAX",
+                "tag-mysql": "MySQL",
+                "tag-pygame": "Pygame",
+                "tag-game-dev": "Game Development",
+                "tag-sound": "Sound Design",
+                "tag-graphics": "2D Graphics",
+                "tag-collision": "Collision Detection",
+                "project8-title": "📚 Library Management System",
+                "project8-desc": "Developed a console-based Library Management System in C to manage users and books efficiently. The system allows administrators to add, update, or remove books, manage user records, and track borrowing activities. Features include checking book availability in real-time and maintaining borrowing history using file handling for data persistence.",
+                "tag-c": "C Programming",
+                "tag-file-handling": "File Handling",
+                "tag-structs": "Structs",
+                "tag-console": "Console Application",
+                "tag-data-management": "Data Management",
+                "project9-title": "🔒 Secure VPN Infrastructure with OpenVPN",
+                "project9-desc": "Implemented and tested a secure VPN using OpenVPN to ensure encrypted communication between an Ubuntu 22.04 server and a Windows 11 client. Configured server setup, certificate generation (CA, server, client), and firewall rules (UFW). Utilized AES-256 encryption, TLS-auth, and IP masking to enhance data protection. Successfully established a secure tunnel with verified encrypted traffic.",
+                "tag-openvpn": "OpenVPN",
+                "tag-easyrsa": "Easy-RSA",
+                "tag-ubuntu": "Ubuntu 22.04",
+                "tag-security": "Security",
+                "tag-encryption": "AES-256",
+                "contact-title": "Let's Connect",
+                "contact-desc": "I'm currently seeking an internship opportunity for my final education project. Feel free to reach out if you'd like to discuss potential collaborations or opportunities!",
+                "contact-email": "📧 Send Me an Email",
+                "contact-linkedin": "💼 LinkedIn",
+                "contact-github": "👨‍💻 GitHub",
+                "contact-whatsapp": "📱 WhatsApp"
+            },
+            fr: {
+                "nav-about": "À propos",
+                "nav-skills": "Compétences",
+                "nav-projects": "Projets",
+                "nav-contact": "Contact",
+                "hero-title": "Ingénieur IA",
+                "hero-subtitle": "Intelligence Artificielle & Transformation Digitale",
+                "hero-location": "Al Hoceima, Maroc",
+                "hero-description": "Étudiant en dernière année d'ingénierie spécialisé en Transformation Digitale et IA, à la recherche d'une opportunité de stage pour appliquer des solutions innovantes et contribuer à des projets de pointe.",
+                "cta-work": "Voir mes projets",
+                "cta-contact": "Me contacter",
+                "cv-download": "Télécharger mon CV",
+                "about-title": "À Propos de Moi",
+                "about-p1": "Je suis un étudiant passionné à l'École des Sciences Appliquées d'Al Hoceima, spécialisé en Transformation Digitale et Intelligence Artificielle. Avec une solide formation en technologies modernes et une volonté d'innovation, je souhaite contribuer à des projets transformateurs.",
+                "about-p2": "Actuellement à la recherche d'un stage pour mon projet de fin d'études, où je pourrai mettre en pratique mes compétences techniques, collaborer avec des professionnels du secteur et créer des solutions impactantes qui relient la technologie aux défis du monde réel.",
+                "skills-title": "Compétences Techniques",
+                "skills-ai-title": "🤖 Intelligence Artificielle",
+                "skills-ai-1": "Apprentissage Automatique",
+                "skills-ai-2": "Apprentissage Profond",
+                "skills-ai-3": "Traitement du Langage Naturel",
+                "skills-ai-4": "Vision par Ordinateur",
+                "skills-prog-title": "💻 Programmation",
+                "skills-prog-1": "Python",
+                "skills-prog-2": "JavaScript",
+                "skills-prog-3": "Java",
+                "skills-prog-4": "C/C++",
+                "skills-tools-title": "🔧 Frameworks & Outils",
+                "skills-tools-1": "TensorFlow / PyTorch",
+                "skills-tools-2": "React / Node.js",
+                "skills-tools-3": "Docker / Kubernetes",
+                "skills-tools-4": "Git / GitHub",
+                "skills-data-title": "📊 Données & Analytique",
+                "skills-data-1": "Analyse de Données",
+                "skills-data-2": "SQL / NoSQL",
+                "skills-data-3": "Visualisation de Données",
+                "skills-data-4": "Technologies Big Data",
+                "projects-title": "Projets Principaux",
+                "project1-title": "🏭 IA Industrielle chez Maghreb Steel",
+                "project1-desc": "Dirigé un projet crucial d'optimisation industrielle à l'usine Steckel Mill de Maghreb Steel à Mohammedia, développant un système basé sur l'IA pour prédire et minimiser les taux de chute dans les processus de laminage à chaud. Mis en œuvre un pipeline complet d'analyse de données et des modèles d'apprentissage automatique pour des insights de production en temps réel, aboutissant à une amélioration de l'efficacité et des recommandations de réduction des déchets.",
+                "project2-title": "🍎 Nutri-Match",
+                "project2-desc": "Conçu un système sophistiqué de recommandation alimentaire basé sur le Big Data utilisant Apache Spark et Databricks. Traité des ensembles de données nutritionnelles à grande échelle pour fournir des suggestions alimentaires personnalisées basées sur la similarité nutritionnelle et les préférences des utilisateurs. Implémenté le clustering K-Means pour le regroupement intelligent des aliments et développé une interface web Flask avec intégration MongoDB pour des recommandations en temps réel.",
+                "project3-title": "😊 Reconnaissance des Émotions Faciales",
+                "project3-desc": "Conçu un système sophistiqué d'apprentissage profond pour la reconnaissance des émotions faciales en temps réel. Le modèle traite à la fois des images statiques et des flux vidéo en direct, détectant avec précision les émotions comme la joie, la tristesse, la colère et la surprise. Amélioré la précision grâce à l'augmentation avancée des données et l'ajustement fin du modèle, démontrant des applications pratiques dans l'interaction homme-machine.",
+                "project4-title": "🧩 Solveur de Rubik's Cube 3D",
+                "project4-desc": "Développé un solveur intelligent de Rubik's Cube utilisant le Q-learning, avec une visualisation 3D interactive. Le projet combine le raisonnement algorithmique avec l'apprentissage par renforcement pour trouver des solutions efficaces de résolution du cube, démontrant l'application pratique de l'IA dans la résolution de puzzles.",
+                "tag-ml": "Apprentissage Automatique",
+                "tag-python": "Python",
+                "tag-pandas": "Pandas",
+                "tag-sklearn": "Scikit-learn",
+                "tag-industrial-ai": "IA Industrielle",
+                "tag-data-analysis": "Analyse de Données",
+                "tag-spark": "Apache Spark",
+                "tag-pyspark": "PySpark",
+                "tag-databricks": "Databricks",
+                "tag-flask": "Flask",
+                "tag-mongodb": "MongoDB",
+                "tag-kmeans": "K-Means",
+                "tag-tensorflow": "TensorFlow",
+                "tag-keras": "Keras",
+                "tag-opencv": "OpenCV",
+                "tag-cnn": "Réseaux de Neurones Convolutifs",
+                "tag-deep-learning": "Apprentissage Profond",
+                "tag-raylib": "RaylibPy",
+                "tag-rl": "Apprentissage par Renforcement",
+                "tag-qlearning": "Q-Learning",
+                "tag-3d": "Modélisation 3D",
+                "project5-title": "☁️ OpenStack – Déploiement & Optimisation",
+                "project5-desc": "Déployé et optimisé avec succès une plateforme de cloud computing OpenStack, implémentant des services complets de virtualisation, de réseau et de stockage. Amélioration de l'efficacité du système grâce à l'automatisation de la gestion des ressources et à l'optimisation de l'infrastructure.",
+                "project6-title": "🎓 TDIA-Services",
+                "project6-desc": "Dirigé le développement d'une plateforme web complète pour l'école ENSAH, facilitant la communication transparente entre enseignants et étudiants. La plateforme comprend la gestion des notes, le partage de cours et des systèmes d'annonces, améliorant la prestation de services académiques.",
+                "project7-title": "🎮 Jeu Interactif à 2 Niveaux",
+                "project7-desc": "Développé un jeu 2D captivant utilisant le framework Pygame, avec deux niveaux uniques aux environnements, sons et styles visuels distincts. Implémenté les mécaniques de jeu de base incluant le mouvement du joueur, la détection de collision et la logique de progression. Créé une expérience immersive grâce à des designs géométriques et des effets sonores dynamiques, démontrant une maîtrise du développement de jeux et de l'intégration multimédia.",
+                "tag-openstack": "OpenStack",
+                "tag-linux": "Linux",
+                "tag-virtualization": "Virtualisation",
+                "tag-cloud": "Cloud Computing",
+                "tag-networking": "Réseautage",
+                "tag-laravel": "Laravel 11",
+                "tag-php": "PHP",
+                "tag-bootstrap": "Bootstrap",
+                "tag-ajax": "AJAX",
+                "tag-mysql": "MySQL",
+                "tag-pygame": "Pygame",
+                "tag-game-dev": "Développement de Jeux",
+                "tag-sound": "Design Sonore",
+                "tag-graphics": "Graphismes 2D",
+                "tag-collision": "Détection de Collision",
+                "project8-title": "📚 Système de Gestion de Bibliothèque",
+                "project8-desc": "Développé un système de gestion de bibliothèque basé sur console en C pour gérer efficacement les utilisateurs et les livres. Le système permet aux administrateurs d'ajouter, mettre à jour ou supprimer des livres, gérer les profils utilisateurs et suivre les activités d'emprunt. Les fonctionnalités incluent la vérification de la disponibilité des livres en temps réel et la maintenance de l'historique d'emprunt en utilisant la gestion de fichiers pour la persistance des données.",
+                "tag-c": "Programmation C",
+                "tag-file-handling": "Gestion de Fichiers",
+                "tag-structs": "Structures",
+                "tag-console": "Application Console",
+                "tag-data-management": "Gestion de Données",
+                "project9-title": "🔒 Infrastructure VPN Sécurisée avec OpenVPN",
+                "project9-desc": "Implémenté et testé un VPN sécurisé utilisant OpenVPN pour assurer une communication cryptée entre un serveur Ubuntu 22.04 et un client Windows 11. Configuré la mise en place du serveur, la génération de certificats (CA, serveur, client) et les règles de pare-feu (UFW). Utilisé le cryptage AES-256, TLS-auth et le masquage IP pour améliorer la protection des données. Établi avec succès un tunnel sécurisé avec vérification du trafic crypté.",
+                "tag-openvpn": "OpenVPN",
+                "tag-easyrsa": "Easy-RSA",
+                "tag-ubuntu": "Ubuntu 22.04",
+                "tag-security": "Sécurité",
+                "tag-encryption": "AES-256",
+                "contact-title": "Restons en Contact",
+                "contact-desc": "Je suis actuellement à la recherche d'une opportunité de stage pour mon projet de fin d'études. N'hésitez pas à me contacter pour discuter de collaborations potentielles !",
+                "contact-email": "📧 Envoyez-moi un Email",
+                "contact-linkedin": "💼 LinkedIn",
+                "contact-github": "👨‍💻 GitHub",
+                "contact-whatsapp": "📱 WhatsApp"
+            },
+            ar: {
+                "nav-about": "نبذة عني",
+                "nav-skills": "المهارات",
+                "nav-projects": "المشاريع",
+                "nav-contact": "اتصل بي",
+                "hero-title": "مهندس ذكاء اصطناعي",
+                "hero-subtitle": "الذكاء الاصطناعي والتحول الرقمي",
+                "hero-location": "الحسيمة، المغرب",
+                "hero-description": "طالب في السنة النهائية من الهندسة متخصص في التحول الرقمي والذكاء الاصطناعي، أبحث عن فرصة تدريب لتطبيق الحلول المبتكرة والمساهمة في المشاريع المتطورة.",
+                "cta-work": "تصفح أعمالي",
+                "cta-contact": "تواصل معي",
+                "cv-download": "تحميل سيرتي الذاتية",
+                "about-title": "نبذة عني",
+                "about-p1": "أنا طالب شغوف في مدرسة العلوم التطبيقية في الحسيمة، متخصص في التحول الرقمي والذكاء الاصطناعي. مع أساس قوي في التقنيات الحديثة ودافع للابتكار، أتطلع للمساهمة في المشاريع التحويلية.",
+                "about-p2": "أبحث حالياً عن فرصة تدريب لمشروع تخرجي، حيث يمكنني تطبيق مهاراتي التقنية والتعاون مع المحترفين في المجال وإنشاء حلول مؤثرة تربط التكنولوجيا بتحديات العالم الواقعي.",
+                "skills-title": "المهارات التقنية",
+                "skills-ai-title": "🤖 الذكاء الاصطناعي",
+                "skills-ai-1": "تعلم الآلة",
+                "skills-ai-2": "التعلم العميق",
+                "skills-ai-3": "معالجة اللغات الطبيعية",
+                "skills-ai-4": "الرؤية الحاسوبية",
+                "skills-prog-title": "💻 البرمجة",
+                "skills-prog-1": "بايثون",
+                "skills-prog-2": "جافاسكريبت",
+                "skills-prog-3": "جافا",
+                "skills-prog-4": "سي/سي++",
+                "skills-tools-title": "🔧 الأطر والأدوات",
+                "skills-tools-1": "تنسرفلو / بايتورش",
+                "skills-tools-2": "رياكت / نود.جي إس",
+                "skills-tools-3": "دوكر / كوبرنيتس",
+                "skills-tools-4": "جيت / جيتهاب",
+                "skills-data-title": "📊 البيانات والتحليلات",
+                "skills-data-1": "تحليل البيانات",
+                "skills-data-2": "إس كيو إل / نو إس كيو إل",
+                "skills-data-3": "تصور البيانات",
+                "skills-data-4": "تقنيات البيانات الضخمة",
+                "projects-title": "المشاريع المميزة",
+                "project1-title": "🏭 الذكاء الاصطناعي الصناعي في مغرب ستيل",
+                "project1-desc": "قدت مشروعاً حاسماً لتحسين الإنتاج الصناعي في مصنع ستيكل ميل التابع لشركة مغرب ستيل في المحمدية، حيث طورت نظاماً قائماً على الذكاء الاصطناعي للتنبؤ وتقليل معدلات الهدر في عمليات الدرفلة الساخنة. نفذت مجموعة شاملة من تحليلات البيانات ونماذج التعلم الآلي للحصول على رؤى إنتاجية في الوقت الفعلي، مما أدى إلى تحسين الكفاءة وتوصيات الحد من النفايات.",
+                "project2-title": "🍎 نوتري-ماتش",
+                "project2-desc": "صممت نظاماً متطوراً لتوصية الأطعمة يعتمد على البيانات الضخمة باستخدام أباتشي سبارك وداتابريكس. عالجت مجموعات بيانات تغذوية واسعة النطاق لتقديم اقتراحات طعام شخصية بناءً على التشابه الغذائي وتفضيلات المستخدم. نفذت تجميع كي-مينز للتجميع الذكي للأطعمة وطورت واجهة ويب فلاسك مع تكامل مونجو دي بي للتوصيات الفورية.",
+                "project3-title": "😊 التعرف على المشاعر من الوجه",
+                "project3-desc": "طورت نظاماً متطوراً للتعلم العميق للتعرف على المشاعر من الوجه في الوقت الفعلي. يعالج النموذج الصور الثابتة وتدفقات الفيديو المباشرة، ويكتشف بدقة المشاعر مثل السعادة والحزن والغضب والمفاجأة. تم تحسين الدقة من خلال تقنيات متقدمة لتوسيع البيانات وضبط النموذج، مما يظهر تطبيقات عملية في التفاعل بين الإنسان والحاسوب.",
+                "project4-title": "🧩 حلال مكعب روبيك ثلاثي الأبعاد",
+                "project4-desc": "طورت حلالاً ذكياً لمكعب روبيك باستخدام تقنية التعلم-كيو، مع واجهة تفاعلية ثلاثية الأبعاد. يجمع المشروع بين التفكير الخوارزمي والتعلم المعزز لإيجاد حلول فعالة لحل المكعب، مما يوضح التطبيق العملي للذكاء الاصطناعي في مجال حل الألغاز.",
+                "tag-ml": "تعلم الآلة",
+                "tag-python": "بايثون",
+                "tag-pandas": "بانداز",
+                "tag-sklearn": "سايكيت-لرن",
+                "tag-industrial-ai": "الذكاء الاصطناعي الصناعي",
+                "tag-data-analysis": "تحليل البيانات",
+                "tag-spark": "أباتشي سبارك",
+                "tag-pyspark": "باي سبارك",
+                "tag-databricks": "داتابريكس",
+                "tag-flask": "فلاسك",
+                "tag-mongodb": "مونجو دي بي",
+                "tag-kmeans": "كي-مينز",
+                "tag-tensorflow": "تنسرفلو",
+                "tag-keras": "كيراس",
+                "tag-opencv": "أوبن سي في",
+                "tag-cnn": "الشبكات العصبية التلافيفية",
+                "tag-deep-learning": "التعلم العميق",
+                "tag-raylib": "راي ليب باي",
+                "tag-rl": "التعلم المعزز",
+                "tag-qlearning": "التعلم-كيو",
+                "tag-3d": "النمذجة ثلاثية الأبعاد",
+                "project5-title": "☁️ أوبن ستاك – النشر والتحسين",
+                "project5-desc": "نجحت في نشر وتحسين منصة الحوسبة السحابية أوبن ستاك، مع تنفيذ خدمات شاملة للافتراضية والشبكات والتخزين. تحسين كفاءة النظام من خلال أتمتة إدارة الموارد وتحسين البنية التحتية.",
+                "project6-title": "🎓 TDIA-Services",
+                "project6-desc": "قدت تطوير منصة ويب شاملة لمدرسة ENSAH، تسهل التواصل السلس بين المعلمين والطلاب. تتميز المنصة بإدارة الدرجات ومشاركة الدروس وأنظمة الإعلانات، مما يحسن تقديم الخدمات الأكاديمية.",
+                "project7-title": "🎮 لعبة تفاعلية من مستويين",
+                "project7-desc": "طورت لعبة ثنائية الأبعاد جذابة باستخدام إطار عمل Pygame، تتميز بمستويين فريدين ببيئات وأصوات وأنماط بصرية مختلفة. نفذت آليات اللعبة الأساسية بما في ذلك حركة اللاعب واكتشاف الاصطدام ومنطق التقدم. أنشأت تجربة غامرة من خلال التصاميم الهندسية والمؤثرات الصوتية الديناميكية، مما يظهر الكفاءة في تطوير الألعاب والتكامل متعدد الوسائط.",
+                "tag-openstack": "أوبن ستاك",
+                "tag-linux": "لينكس",
+                "tag-virtualization": "الافتراضية",
+                "tag-cloud": "الحوسبة السحابية",
+                "tag-networking": "الشبكات",
+                "tag-laravel": "لارافيل 11",
+                "tag-php": "بي إتش بي",
+                "tag-bootstrap": "بوتستراب",
+                "tag-ajax": "أجاكس",
+                "tag-mysql": "ماي إس كيو إل",
+                "tag-pygame": "باي جيم",
+                "tag-game-dev": "تطوير الألعاب",
+                "tag-sound": "تصميم الصوت",
+                "tag-graphics": "رسومات ثنائية الأبعاد",
+                "tag-collision": "كشف الاصطدام",
+                "project8-title": "📚 نظام إدارة المكتبة",
+                "project8-desc": "طورت نظام إدارة مكتبة قائم على وحدة التحكم بلغة C لإدارة المستخدمين والكتب بكفاءة. يسمح النظام للمسؤولين بإضافة أو تحديث أو إزالة الكتب، وإدارة سجلات المستخدمين، وتتبع أنشطة الاستعارة. تشمل الميزات التحقق من توفر الكتب في الوقت الفعلي والحفاظ على سجل الاستعارة باستخدام معالجة الملفات لاستمرارية البيانات.",
+                "tag-c": "برمجة سي",
+                "tag-file-handling": "معالجة الملفات",
+                "tag-structs": "الهياكل",
+                "tag-console": "تطبيق وحدة التحكم",
+                "tag-data-management": "إدارة البيانات",
+                "project9-title": "🔒 بنية تحتية آمنة لشبكة VPN باستخدام OpenVPN",
+                "project9-desc": "نفذت واختبرت شبكة VPN آمنة باستخدام OpenVPN لضمان الاتصال المشفر بين خادم Ubuntu 22.04 وعميل Windows 11. قمت بتكوين إعداد الخادم، وإنشاء الشهادات (CA، الخادم، العميل)، وقواعد جدار الحماية (UFW). استخدمت تشفير AES-256، ومصادقة TLS، وإخفاء IP لتعزيز حماية البيانات. نجحت في إنشاء نفق آمن مع التحقق من حركة المرور المشفرة.",
+                "tag-openvpn": "أوبن في بي إن",
+                "tag-easyrsa": "إيزي-آر إس إيه",
+                "tag-ubuntu": "أوبونتو 22.04",
+                "tag-security": "الأمان",
+                "tag-encryption": "تشفير AES-256",
+                "contact-title": "لنتواصل",
+                "contact-desc": "أبحث حالياً عن فرصة تدريب لمشروع تخرجي. لا تتردد في التواصل معي لمناقشة فرص التعاون المحتملة!",
+                "contact-email": "📧 أرسل لي بريداً إلكترونياً",
+                "contact-linkedin": "💼 لينكد إن",
+                "contact-github": "👨‍💻 جيت هاب",
+                "contact-whatsapp": "📱 واتساب"
+            }
+        };
+
+        function initLanguageSwitcher() {
+            const langBtns = document.querySelectorAll('.lang-btn');
+            
+            // Add click event listeners to language buttons
+            langBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const lang = btn.getAttribute('data-lang');
+                    console.log('Language button clicked:', lang); // Debug
+                    
+                    // Update active button state
+                    langBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    // Apply translations
+                    setLanguage(lang);
+                });
+            });
+
+            // Set initial language
+            const savedLang = localStorage.getItem('preferred-language') || 'en';
+            console.log('Initial language:', savedLang); // Debug
+            setLanguage(savedLang);
+            
+            // Set initial active button
+            const initialBtn = document.querySelector(`[data-lang="${savedLang}"]`);
+            if (initialBtn) {
+                langBtns.forEach(b => b.classList.remove('active'));
+                initialBtn.classList.add('active');
+            }
+        }
+
+        function setLanguage(lang) {
+            console.log('Setting language to:', lang); // Debug
+            
+            // Set text direction for Arabic
+            document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+            document.body.style.direction = lang === 'ar' ? 'rtl' : 'ltr';
+            
+            // Update all translatable elements
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                console.log('Translating element:', key); // Debug
+                
+                if (translations[lang] && translations[lang][key]) {
+                    if (element.tagName.toLowerCase() === 'input' && element.type === 'text') {
+                        element.placeholder = translations[lang][key];
+                    } else {
+                        element.textContent = translations[lang][key];
+                    }
+                }
+            });
+
+            // Store language preference
+            localStorage.setItem('preferred-language', lang);
+        }
+
+        // Mouse move effect for project cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.project-card');
+            
+            cards.forEach(card => {
+                card.addEventListener('mousemove', function(e) {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    card.style.setProperty('--mouse-x', `${x}px`);
+                    card.style.setProperty('--mouse-y', `${y}px`);
+                });
+            });
+        });
+
+        // Binary rain effect
+        function createBinaryRain() {
+            const binaryOverlay = document.getElementById('binaryOverlay');
+            const characters = '01';
+            const streams = 50;
+            
+            for (let i = 0; i < streams; i++) {
+                const stream = document.createElement('div');
+                stream.style.position = 'absolute';
+                stream.style.left = `${Math.random() * 100}%`;
+                stream.style.animationDuration = `${Math.random() * 5 + 3}s`;
+                stream.style.animationDelay = `${Math.random() * 2}s`;
+                
+                let text = '';
+                for (let j = 0; j < 20; j++) {
+                    text += characters.charAt(Math.floor(Math.random() * characters.length));
+                }
+                stream.textContent = text;
+                
+                binaryOverlay.appendChild(stream);
+            }
+        }
+        
+        createBinaryRain();
+
+        // Create animated particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll animation to sections
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.skill-card, .project-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(50px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+
+        // Dialogflow Messenger Event Listeners and Style Enforcement
+        window.addEventListener('df-messenger-loaded', () => {
+            console.log('Dialogflow Messenger loaded successfully');
+            
+            // Force apply custom styles after messenger loads
+            const dfMessenger = document.querySelector('df-messenger');
+            if (dfMessenger) {
+                // Apply font family to shadow DOM
+                const style = document.createElement('style');
+                style.textContent = `
+                    * {
+                        font-family: 'Inter', 'Segoe UI', sans-serif !important;
+                    }
+                `;
+                
+                // Try to inject into shadow DOM
+                try {
+                    if (dfMessenger.shadowRoot) {
+                        dfMessenger.shadowRoot.appendChild(style.cloneNode(true));
+                    }
+                } catch (e) {
+                    console.log('Could not access shadow DOM:', e);
+                }
+            }
+        });
+
+        window.addEventListener('df-messenger-error', (event) => {
+            console.error('Dialogflow Messenger error:', event.detail);
+        });
+
+        window.addEventListener('df-request-sent', (event) => {
+            console.log('Request sent to Dialogflow:', event.detail);
+        });
+
+        window.addEventListener('df-response-received', (event) => {
+            console.log('Response received from Dialogflow:', event.detail);
+        });
+
+    </script>
+</body>
+</html>
